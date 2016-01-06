@@ -1,6 +1,7 @@
 package scraper
 
 import (
+	"log"
 	"testing"
 )
 
@@ -10,5 +11,5 @@ func TestPlayStoreScraper(t *testing.T) {
 		t.Error(err)
 		t.Fail()
 	}
-	t.Log(app)
+	log.Println(app)
 }

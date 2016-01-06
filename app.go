@@ -3,7 +3,7 @@ package scraper
 type App struct {
 	Name        string
 	IconUrl     string
-	Price       int
+	Price       string
 	Description string
 	LastUpdated string
 	FileSize    string
@@ -20,7 +20,7 @@ type App struct {
 	Genre string
 
 	AggregateRating string
-	RatingValue     int
+	RatingValue     float64
 	RatingCount     int
 	ContentRating   string
 
