@@ -15,6 +15,10 @@ func Scrape(rawUrl string) (*App, error) {
 	switch uri.Host {
 	case "play.google.com":
 		return parsePlayStore(uri)
+	case "www.androiddrawer.com":
+		fallthrough
+	case "androiddrawer.com":
+		return parseAndroidDrawer(uri)
 	}
 	return nil, errors.New("Site is not supported by parser")
 }

@@ -5,7 +5,7 @@
 import "github.com/betacraft/scraper"
 
 func xyz(){
-   app, err := scraper.Scrape("https://play.google.com/store/apps/details?id=com.simpl.android")
+   app, err := scraper.Scrape("https://play.google.com/store/apps/details?id=com.yourpackage.name")
    if err != nil {
        //parsing failed
    }
@@ -38,8 +38,13 @@ type App struct {
 	ContentRating   string
 
 	Downloads string
+
+	ApkDownloadUrl  string
+	ApkDownloadSize string
+	ApkDownloadMD5  string
 }
 ```
 
 ## Supported sites
 1. Google Play Store
+2. AndroidDrawer

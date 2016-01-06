@@ -25,4 +25,8 @@ type App struct {
 	ContentRating   string
 
 	Downloads string
+
+	ApkDownloadUrl  string
+	ApkDownloadSize string
+	ApkDownloadMD5  string
 }
