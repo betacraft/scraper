@@ -5,7 +5,7 @@
 import "github.com/betacraft/scraper"
 
 func xyz(){
-   app, err := Scrape("https://play.google.com/store/apps/details?id=com.simpl.android")
+   app, err := scraper.Scrape("https://play.google.com/store/apps/details?id=com.simpl.android")
    if err != nil {
        //parsing failed
    }
