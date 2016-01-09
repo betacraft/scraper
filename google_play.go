@@ -7,12 +7,9 @@ import (
 	"strings"
 )
 
-func parsePlayStore(url *url.URL) (*App, error) {
+func parsePlayStorePage(doc *goquery.Document) (*App, error) {
+	var err error
 	app := new(App)
-	doc, err := goquery.NewDocument(url.String())
-	if err != nil {
-		return nil, err
-	}
 	itemprops := make([]goquery.Selection, 0)
 	// adding all itemprops
 	doc.Find("*").Each(func(i int, s *goquery.Selection) {
@@ -80,6 +77,14 @@ func parsePlayStore(url *url.URL) (*App, error) {
 		}
 	}
 	return app, nil
+}
+
+func parsePlayStore(url *url.URL) (*App, error) {
+	doc, err := goquery.NewDocument(url.String())
+	if err != nil {
+		return nil, err
+	}
+	return parsePlayStorePage(doc)
 }
 
 func getItemprop(s *goquery.Selection, array *[]goquery.Selection) {

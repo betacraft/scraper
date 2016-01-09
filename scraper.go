@@ -2,6 +2,7 @@ package scraper
 
 import (
 	"errors"
+	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/url"
 )
@@ -19,6 +20,23 @@ func Scrape(rawUrl string) (*App, error) {
 		fallthrough
 	case "androiddrawer.com":
 		return parseAndroidDrawer(uri)
+	}
+	return nil, errors.New("Site is not supported by parser")
+}
+
+func ScrapeDoc(rawUrl string, doc *goquery.Document) (*App, error) {
+	uri, err := url.Parse(rawUrl)
+	if err != nil {
+		return nil, err
+	}
+	log.Println("Parsing", uri.Host)
+	switch uri.Host {
+	case "play.google.com":
+		return parsePlayStorePage(doc)
+	case "www.androiddrawer.com":
+		fallthrough
+	case "androiddrawer.com":
+		return parseAndroidDrawerPage(doc)
 	}
 	return nil, errors.New("Site is not supported by parser")
 }

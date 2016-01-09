@@ -7,18 +7,15 @@ import (
 	"strings"
 )
 
-func parseAndroidDrawer(url *url.URL) (*App, error) {
+func parseAndroidDrawerPage(doc *goquery.Document) (*App, error) {
+	log.Println("Parsing page")
 	app := new(App)
-	doc, err := goquery.NewDocument(url.String())
-	if err != nil {
-		return nil, err
-	}
 	var playurl string
 	doc.Find(".playurl").Each(func(i int, s *goquery.Selection) {
 		playurl, _ = s.Attr("href")
-		log.Println("playurl", playurl)
 	})
-	app, err = Scrape(playurl)
+	log.Println("Parsing", playurl)
+	app, err := Scrape(playurl)
 	if err != nil {
 		return nil, err
 	}
@@ -28,7 +25,6 @@ func parseAndroidDrawer(url *url.URL) (*App, error) {
 			return
 		}
 		href, _ := s.Children().Attr("href")
-		log.Println(href)
 		app.ApkDownloadUrl = href
 		// getting other info
 		s.Children().Children().Each(func(i int, s *goquery.Selection) {
@@ -42,4 +38,13 @@ func parseAndroidDrawer(url *url.URL) (*App, error) {
 		})
 	})
 	return app, nil
+}
+
+func parseAndroidDrawer(url *url.URL) (*App, error) {
+	doc, err := goquery.NewDocument(url.String())
+	if err != nil {
+		return nil, err
+	}
+	return parseAndroidDrawerPage(doc)
+
 }
