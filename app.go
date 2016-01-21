@@ -2,6 +2,7 @@ package scraper
 
 type App struct {
 	Name        string
+	PackageName string
 	IconUrl     string
 	Price       string
 	Description string

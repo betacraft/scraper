@@ -1,10 +1,11 @@
 package scraper
 
 import (
-	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/url"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 func parseAndroidDrawerPage(doc *goquery.Document) (*App, error) {
@@ -19,6 +20,7 @@ func parseAndroidDrawerPage(doc *goquery.Document) (*App, error) {
 	if err != nil {
 		return nil, err
 	}
+	app.PackageName = strings.Split(playurl, "?id=")[1]
 	doc.Find(".changelog-wrap").Children().Each(func(i int, s *goquery.Selection) {
 		attr, _ := s.Attr("class")
 		if attr != "download-wrap" {
