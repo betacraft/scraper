@@ -15,18 +15,14 @@ func parsePlayStorePage(doc *goquery.Document) (*App, error) {
 	doc.Find("*").Each(func(i int, s *goquery.Selection) {
 		getItemprop(s, &itemprops)
 	})
-	// for getting logo url
-	doc.Find(".cover-image").Each(func(i int, s *goquery.Selection) {
-		url, ok := s.Attr("src")
-		if !ok {
-			return
-		}
-		app.IconUrl = url
-	})
 	// sanitizing data
 	for _, prop := range itemprops {
 		itemprop, _ := prop.Attr("itemprop")
 		switch itemprop {
+		case "image":
+			app.IconUrl, _ = prop.Attr("src")
+			app.IconUrl = strings.Split(app.IconUrl, "=w")[0]
+			app.IconUrl += "=w512"
 		case "name":
 			// checking parent to differ between author name and app name
 			parent, _ := prop.Html()
