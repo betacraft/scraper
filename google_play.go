@@ -1,10 +1,11 @@
 package scraper
 
 import (
-	"github.com/PuerkitoBio/goquery"
 	"net/url"
 	"strconv"
 	"strings"
+
+	"github.com/PuerkitoBio/goquery"
 )
 
 func parsePlayStorePage(doc *goquery.Document) (*App, error) {
@@ -15,6 +16,7 @@ func parsePlayStorePage(doc *goquery.Document) (*App, error) {
 	doc.Find("*").Each(func(i int, s *goquery.Selection) {
 		getItemprop(s, &itemprops)
 	})
+	app.PackageName = strings.Split(doc.Url.String(), "?id=")[1]
 	// sanitizing data
 	for _, prop := range itemprops {
 		itemprop, _ := prop.Attr("itemprop")
