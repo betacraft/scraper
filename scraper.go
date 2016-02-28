@@ -2,9 +2,10 @@ package scraper
 
 import (
 	"errors"
-	"github.com/PuerkitoBio/goquery"
 	"log"
 	"net/url"
+
+	"github.com/betacraft/goquery"
 )
 
 func Scrape(rawUrl string) (*App, error) {

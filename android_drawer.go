@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"strings"
 
-	"github.com/PuerkitoBio/goquery"
+	"github.com/betacraft/goquery"
 )
 
 func parseAndroidDrawerPage(doc *goquery.Document) (*App, error) {

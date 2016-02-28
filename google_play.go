@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/PuerkitoBio/goquery"
+	"github.com/betacraft/goquery"
 )
 
 func parsePlayStorePage(doc *goquery.Document) (*App, error) {
