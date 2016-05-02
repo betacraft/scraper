@@ -1,6 +1,7 @@
 package scraper
 
 import (
+	"errors"
 	"net/url"
 	"strconv"
 	"strings"
@@ -16,7 +17,11 @@ func parsePlayStorePage(doc *goquery.Document) (*App, error) {
 	doc.Find("*").Each(func(i int, s *goquery.Selection) {
 		getItemprop(s, &itemprops)
 	})
-	app.PackageName = strings.Split(doc.Url.String(), "?id=")[1]
+	splitData := strings.Split(doc.Url.String(), "?id=")
+	if len(splitData) < 2 {
+		return app, errors.New("invalid url")
+	}
+	app.PackageName = splitData[1]
 	// sanitizing data
 	for _, prop := range itemprops {
 		itemprop, _ := prop.Attr("itemprop")
